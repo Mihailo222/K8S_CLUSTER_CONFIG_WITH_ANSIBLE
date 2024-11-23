@@ -1,0 +1,20 @@
+---
+machine_architecture: amd64
+machine_distribution_codename: focal
+vm_instance_linux_distro: ubuntu
+docker_apt_repository_gpg_keys: "https://download.docker.com/linux/{{ vm_instance_linux_distro }}/gpg"
+docker_apt_repository: "https://download.docker.com/linux/{{ vm_instance_linux_distro }}"
+
+master_ip: "10.128.0.10"
+master_hostname: "k8s-master-node"
+
+slave_one_ip: "10.128.0.27"
+slave_one_hostname: "k8s-slave1-node"
+
+slave_two_ip: "10.128.0.28"
+slave_two_hostname: "k8s-slave2-node"
+
+cidr_range: "192.168.0.0/16"
+k8s_v: "1.30.7"
+
+calico-plugin-yaml-file: "https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/manifests/calico.yaml"
