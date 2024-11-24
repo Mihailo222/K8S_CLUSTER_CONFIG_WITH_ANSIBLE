@@ -134,7 +134,7 @@
       creates: /etc/kubernetes/admin.conf #skip this task if this file is created
 
 
-   - name: Create .kube directory for the user myprojectwideuser.#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   - name: Create .kube directory for the user myprojectwideuser.#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! (najbolji nacin da ne bude da folder pripada useru, a fajl  u fodleru rootu)
      file:
       path: "/home/myawesomeprojectwideuser/.kube"
       state: directory
