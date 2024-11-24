@@ -133,27 +133,30 @@
      args:
       creates: /etc/kubernetes/admin.conf #skip this task if this file is created
 
-   - name: Make directory for k8s admin configuration. Use shell module bcs it seed env variables.
-     shell: |
-      mkdir -p $HOME/.kube
-     become_user: myawesomeprojectwideuser
-     args:
-      creates: "$HOME/.kube" # shell module is not idemponent
 
+   - name: Create .kube directory for the user myprojectwideuser.#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     file:
+      path: "/home/myawesomeprojectwideuser/.kube"
+      state: directory
+      owner: myawesomeprojectwideuser
+      group: myawesomeprojectwideuser
+      mode: '0700'
 
-   - name: Fill .kube/config file with master configuration.
-     shell: |
-      sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-     become_user: myawesomeprojectwideuser
-     args:
-      creates: "$HOME/.kube/config"
+   - name: Copy Kubernetes admin.conf to user's kube config
+     copy:
+      src: /etc/kubernetes/admin.conf
+      dest: /home/myawesomeprojectwideuser/.kube/config
+      owner: myawesomeprojectwideuser
+      group: myawesomeprojectwideuser
+      mode: '0600'
+      remote_src: true
 
-   - name: Edit file premissions.
-     shell: |
-      sudo chown $(id -u):$(id -g) $HOME/.kube/config
-     become_user: myawesomeprojectwideuser
-     args:
-      creates: "$HOME/.kube/config"
+   - name: Verify permissions of the kube config. Ensure user has premissions on a file, not only a directory.
+     file:
+      path: "/home/myawesomeprojectwideuser/.kube/config"
+      owner: myawesomeprojectwideuser
+      group: myawesomeprojectwideuser
+      mode: '0600'
 
   ################################################### CALICO PLUGIN ################################
    - name: Check if Calico is already installed.
