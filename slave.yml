@@ -128,21 +128,6 @@
      shell: |
       sudo sysctl --system
 
-
-
-
-  ################################################### CALICO PLUGIN ################################
-  # - name: Check if Calico is already installed.
-  #  shell: kubectl get pods -n kube-system | grep calico-kube-controllers
-  #  register: calico_check
-  #  failed_when: false #task never fails; default - when it returns non-zero exit code (rc)
-  #  changed_when: false #task is marked as changed if it executes a command that modifies a sys; always unchanged here
-     #or u can see if file /etc/kubernetes/manifests/calico.yaml exists on a master node.
-
-
-     #  - name: Install networking calico plugin in order nodes to see each other.
-     #shell: "kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/manifests/calico.yaml"
-     #when: calico_check.rc != 0
    ########################################### JOIN NODES  ################################
 
    - name: Join slave nodes to master k8s node (cluster).
